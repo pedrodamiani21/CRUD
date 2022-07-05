@@ -14,10 +14,11 @@ class CustomerRepository implements CustomerRepositoryInterface
         $this->entity = $customer;
     }
 
-    public function index()
+    public function allCustomers()
     {
-        return $this->entity->get();
+        return $this->entity->paginate(10);
     }
+
 
     public function createCustomer($data)
     {
@@ -41,10 +42,4 @@ class CustomerRepository implements CustomerRepositoryInterface
         $customer = $this->entity->where('id', $data['id'])->delete();;
         return 'Successful deleting customer!';
     }
-    
-    
-
-    
- 
-
 }

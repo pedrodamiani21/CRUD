@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+
 
 use App\Services\CustomerService;
 
 
 class CustomerController extends Controller
 {
-    protected $feeService;
+    protected $customerService;
 
     public function __construct(CustomerService $customerService)
     {
@@ -19,10 +19,10 @@ class CustomerController extends Controller
 
     public function index()
     {
-        //
+        return $this->customerService->validateAllCustomers();
     }
 
-    public function store(Request $request)
+    public function create(Request $request)
     {   
         $cpf = $request->input('cpf') ?? null;
         $email = $request->input('email') ?? null;
