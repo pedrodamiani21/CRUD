@@ -14,10 +14,15 @@ class CustomerService{
         $this->customerRepository = $customerRepository;
     }
 
+    public function validateAllCustomers() 
+    {
+        return response()->json([$this->customerRepository->allCustomers(), 200]);
+    }
+
     public function validateCustomerCreate($data)
     {
         $validator = Validator::make($data, [
-            'cpf' => 'required|min:11|max:11|unique:customers',
+            'cpf' => 'required|min:11|max:11|unique:customers|numeric',
             'email' => 'required|email|unique:customers',
             'name' => 'required'
         ]);
@@ -31,7 +36,7 @@ class CustomerService{
     public function validateCustomerShow($data)
     {
         $validator = Validator::make($data, [
-            'id' => 'required',
+            'id' => 'required|numeric',
         ]);
 
         if(!$validator->fails()){
@@ -43,8 +48,8 @@ class CustomerService{
     public function validateCustomerEdit($data)
     {  
         $validator = Validator::make($data, [
-            'id' => 'required',
-            'cpf' => 'min:11|max:11|unique:customers',
+            'id' => 'required|numeric',
+            'cpf' => 'min:11|max:11|unique:customers|numeric',
             'email' => 'email|unique:customers',
         ]);
         
@@ -53,10 +58,11 @@ class CustomerService{
         }
         return response()->json([$validator->messages(), 400]);
     }
+
     public function validateCustomerDelete($data)
     {
         $validator = Validator::make($data, [
-            'id' => 'required',
+            'id' => 'required|numeric',
         ]);
 
         if(!$validator->fails()){
@@ -64,10 +70,4 @@ class CustomerService{
         }
         return response()->json([$validator->messages(), 400]);
     }
-
-
-    
-
-
-
 }
