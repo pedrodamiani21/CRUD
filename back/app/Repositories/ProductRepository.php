@@ -27,7 +27,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function showProduct($data)
     {
-        return $this->entity->get()->where('id', $data['id']);
+        return $this->entity->where('id', $data['id'])->get();
     }
     
     public function editProduct($data)

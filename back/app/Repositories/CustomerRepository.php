@@ -28,7 +28,7 @@ class CustomerRepository implements CustomerRepositoryInterface
 
     public function showCustomer($data)
     {
-        return $this->entity->get()->where('id', $data['id']);
+        return $this->entity->where('id', $data['id'])->get();
     }
     
     public function editCustomer($data)
