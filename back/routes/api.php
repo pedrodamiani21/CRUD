@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,10 @@ Route::post('/product/create', [ProductController::class, 'create']);
 Route::post('/product/edit', [ProductController::class, 'edit']);
 Route::get('/product/show', [ProductController::class, 'show']);
 Route::post('/product/delete', [ProductController::class, 'destroy']);
+
+
+Route::get('/orders', [OrderController::class, 'index']);
+Route::post('/order/create', [OrderController::class, 'create']);
+Route::post('/order/edit', [OrderController::class, 'edit']);
+Route::get('/order/show', [OrderController::class, 'show']);
+Route::post('/order/delete', [OrderController::class, 'destroy']);

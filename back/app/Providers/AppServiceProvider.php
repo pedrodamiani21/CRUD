@@ -4,12 +4,14 @@ namespace App\Providers;
 
 use App\Repositories\Contracts\{
     CustomerRepositoryInterface,
-    ProductRepositoryInterface
+    ProductRepositoryInterface,
+    OrderRepositoryInterface
  };
 
 use App\Repositories\{
     CustomerRepository,
-    ProductRepository
+    ProductRepository,
+    OrderRepository
  };
 
 use Illuminate\Support\ServiceProvider;
@@ -27,11 +29,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             CustomerRepositoryInterface::class,
             CustomerRepository::class,
-
+            
         );
         $this->app->bind(
             ProductRepositoryInterface::class,
             ProductRepository::class,
+
+        );
+        $this->app->bind(
+            OrderRepositoryInterface::class,
+            OrderRepository::class,
 
         );
     }
