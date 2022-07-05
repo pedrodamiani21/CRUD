@@ -16,7 +16,7 @@ class CustomerRepository implements CustomerRepositoryInterface
 
     public function allCustomers()
     {
-        return $this->entity->paginate(10);
+        return $this->entity->paginate(20);
     }
 
 
