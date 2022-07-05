@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->decimal('price', 9, 3);
-            $table->string('bar_code', 20);
+            $table->string('bar_code', 20)->unique();
         });
     }
 
