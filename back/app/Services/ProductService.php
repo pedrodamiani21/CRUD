@@ -16,7 +16,7 @@ class ProductService{
 
     public function validateAllProducts() 
     {
-        return response()->json([$this->productRepository->allProducts(), 200]);
+        return response([$this->productRepository->allProducts()], 200);
     }
 
     public function validateProductCreate($data)
@@ -27,10 +27,12 @@ class ProductService{
             'bar_code' => 'required|max:20|unique:products'
         ]);
 
-        if(!$validator->fails()){
-            return response()->json([$this->productRepository->createProduct($data), 200]);
+        if(!$validator->fails())
+        {
+            return response([$this->productRepository->createProduct($data)], 200);
         }
-        return response()->json([$validator->messages(), 400]);
+
+        return response([$validator->messages()], 400);
     }
 
     public function validateProductShow($data)
@@ -39,25 +41,35 @@ class ProductService{
             'id' => 'required|numeric',
         ]);
 
-        if(!$validator->fails()){
-            return response()->json([$this->productRepository->showProduct($data), 200]);
+        if(!$validator->fails())
+        {
+            return response([$this->productRepository->showProduct($data)], 200);
         }
-        return response()->json([$validator->messages(), 400]);
+
+        return response([$validator->messages()], 400);
     }
 
     public function validateProductEdit($data)
     {  
-        $validator = Validator::make($data, [
-            'id' => 'required|numeric',
-            'price' => 'numeric',
-            'bar_code' => 'max:20|unique:products'
-        ]);
+        if(count($data) >= 2) 
+        {
+            $validator = Validator::make($data, [
+                'id' => 'required|numeric',
+                'price' => 'numeric',
+                'bar_code' => 'max:20|unique:products'
+            ]);
         
-        if(!$validator->fails()){
-            return response()->json([$this->productRepository->editProduct($data), 200]);
+            if(!$validator->fails())
+            {
+                return response([$this->productRepository->editProduct($data)], 200);
+            }
+
+            return response([$validator->messages()], 400);
         }
-        return response()->json([$validator->messages(), 400]);
+        return response(['You have not filled in any data to change!'], 400);
     }
+
+    
 
     public function validateProductDelete($data)
     {
@@ -65,9 +77,11 @@ class ProductService{
             'id' => 'required|numeric',
         ]);
 
-        if(!$validator->fails()){
-            return response()->json([$this->productRepository->deleteProduct($data), 200]);
+        if(!$validator->fails())
+        {
+            return response([$this->productRepository->deleteProduct($data)], 200);
         }
-        return response()->json([$validator->messages(), 400]);
+        
+        return response([$validator->messages()], 400);
     }
 }
