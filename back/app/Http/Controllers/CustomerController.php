@@ -17,9 +17,11 @@ class CustomerController extends Controller
         $this->customerService = $customerService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->customerService->validateAllCustomers();
+        $q = $request->input('q') ?? null;
+        $data = ['q' => $q];
+        return $this->customerService->validateAllCustomers($data);
     }
 
     public function create(Request $request)

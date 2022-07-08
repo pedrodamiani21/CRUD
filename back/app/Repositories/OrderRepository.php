@@ -14,9 +14,16 @@ class OrderRepository implements OrderRepositoryInterface
         $this->entity = $order;
     }
 
-    public function allOrders()
+    public function allOrders($data)
     {
-        return $this->entity->paginate(20);
+        return $this->entity
+        ->where('status','LIKE','%'.$data['q'].'%')
+        ->orWhere('id','LIKE','%'.$data['q'].'%')
+        ->orWhere('customer_id','LIKE','%'.$data['q'].'%')
+        ->orWhere('product_id','LIKE','%'.$data['q'].'%')
+        ->orWhere('order_amount','LIKE','%'.$data['q'].'%')
+        ->orWhere('order_date','LIKE','%'.$data['q'].'%')
+        ->paginate(20);
     }
 
     public function createOrder($data)

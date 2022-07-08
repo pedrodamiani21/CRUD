@@ -14,15 +14,15 @@ class CustomerService{
         $this->customerRepository = $customerRepository;
     }
 
-    public function validateAllCustomers() 
+    public function validateAllCustomers($data) 
     {
-        return response([$this->customerRepository->allCustomers()], 200);
+        return response([$this->customerRepository->allCustomers($data)], 200);
     }
 
     public function validateCustomerCreate($data)
     {
         $validator = Validator::make($data, [
-            'cpf' => 'required|min:11|max:11|unique:customers|numeric',
+            'cpf' => 'required|min:11|max:11|unique:customers',
             'email' => 'required|email|unique:customers',
             'name' => 'required'
         ]);
@@ -55,8 +55,8 @@ class CustomerService{
         {
             $validator = Validator::make($data, [
             'id' => 'required|numeric',
-            'cpf' => 'min:11|max:11|unique:customers|numeric',
-            'email' => 'email|unique:customers',
+            'cpf' => 'min:11|max:11|numeric',
+            'email' => 'email',
             ]);
         
             if(!$validator->fails())

@@ -14,9 +14,14 @@ class CustomerRepository implements CustomerRepositoryInterface
         $this->entity = $customer;
     }
 
-    public function allCustomers()
+    public function allCustomers($data)
     {
-        return $this->entity->paginate(20);
+        return $this->entity
+        ->where('name','LIKE','%'.$data['q'].'%')
+        ->orWhere('email','LIKE','%'.$data['q'].'%')
+        ->orWhere('cpf','LIKE','%'.$data['q'].'%')
+        ->orWhere('id','LIKE','%'.$data['q'].'%')
+        ->paginate(20);
     }
 
 
