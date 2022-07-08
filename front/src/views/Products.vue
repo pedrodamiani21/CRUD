@@ -35,7 +35,7 @@
       :items="products.data"
       :loading="loading"
       :options.sync="options"
-     
+     :server-items-length="products.total"
       @pagination="updatePage"
       :footer-props="{
         'items-per-page-options': [20],
@@ -231,7 +231,6 @@ export default {
         locale: "pt-BR",
         prefix: "R$",
         suffix: "",
-        length: 11,
         precision: 2,
       },
     };

@@ -35,7 +35,7 @@
       :items="customers.data"
       :loading="loading"
       :options.sync="options"
-      
+      :server-items-length="customers.total"
       @pagination="updatePage"
       :footer-props="{
         'items-per-page-options': [20],
@@ -278,17 +278,15 @@ export default {
 
     async addCustomer() {
       if (this.$refs.form.validate()) {
-        try{
-        await axios.post(`http://localhost:8000/api/customer/create`, {
-          name: this.newCustomer.name,
-          email: this.newCustomer.email,
-          cpf: this.newCustomer.cpf,
-        });
-         
+        try {
+          await axios.post(`http://localhost:8000/api/customer/create`, {
+            name: this.newCustomer.name,
+            email: this.newCustomer.email,
+            cpf: this.newCustomer.cpf,
+          });
+
           this.sucessAlert = true;
-        }
-        catch{
-          
+        } catch {
           this.errorAlert = true;
         }
 
@@ -317,15 +315,14 @@ export default {
 
     async deleteItemConfirm() {
       this.customers.data.splice(this.editedIndex, 1);
-      try{
-      await axios.post(`http://localhost:8000/api/customer/delete`, {
-        id: this.editedItem.id,
-      });
-      this.sucessAlert = true;
-      } 
-      catch{
+      try {
+        await axios.post(`http://localhost:8000/api/customer/delete`, {
+          id: this.editedItem.id,
+        });
+        this.sucessAlert = true;
+      } catch {
         this.errorAlert = true;
-        }
+      }
       this.closeDelete();
     },
 
@@ -352,20 +349,17 @@ export default {
 
     async save() {
       if (this.editedIndex > -1) {
-
         Object.assign(this.customers.data[this.editedIndex], this.editedItem);
-        try{
-       await  axios.post(`http://localhost:8000/api/customer/edit`, {
-          id: this.editedItem.id,
-          email: this.editedItem.email,
-          name: this.editedItem.name,
-        });
-        this.sucessAlert = true;
-        } 
-        catch{
-        this.errorAlert = true;
+        try {
+          await axios.post(`http://localhost:8000/api/customer/edit`, {
+            id: this.editedItem.id,
+            email: this.editedItem.email,
+            name: this.editedItem.name,
+          });
+          this.sucessAlert = true;
+        } catch {
+          this.errorAlert = true;
         }
-
       } else {
         this.customers.data.push(this.editedItem);
       }
