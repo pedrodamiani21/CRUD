@@ -35,6 +35,7 @@
       :items="orders.data"
       :loading="loading"
       :options.sync="options"
+      :server-items-length="orders.total"
       @pagination="updatePage"
       :footer-props="{
         'items-per-page-options': [20],
