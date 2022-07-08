@@ -14,9 +14,9 @@ class OrderService{
         $this->orderRepository = $orderRepository;
     }
 
-    public function validateAllOrders() 
+    public function validateAllOrders($data) 
     {
-        return response([$this->orderRepository->allOrders()], 200);
+        return response([$this->orderRepository->allOrders($data)], 200);
     }
 
     public function validateOrderCreate($data)

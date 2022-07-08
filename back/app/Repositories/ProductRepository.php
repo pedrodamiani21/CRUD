@@ -14,9 +14,14 @@ class ProductRepository implements ProductRepositoryInterface
         $this->entity = $product;
     }
 
-    public function allProducts()
+    public function allProducts($data)
     {
-        return $this->entity->paginate(20);
+        return $this->entity
+        ->where('name','LIKE','%'.$data['q'].'%')
+        ->orWhere('price','LIKE','%'.$data['q'].'%')
+        ->orWhere('bar_code','LIKE','%'.$data['q'].'%')
+        ->orWhere('id','LIKE','%'.$data['q'].'%')
+        ->paginate(20);
     }
 
     public function createProduct($data)

@@ -14,9 +14,11 @@ class OrderController extends Controller
     {
         $this->orderService = $orderService;
     }
-    public function index()
+    public function index(Request $request)
     {
-        return $this->orderService->validateAllOrders();
+        $q = $request->input('q') ?? null;
+        $data = ['q' => $q];
+        return $this->orderService->validateAllOrders($data);
     }
 
     public function create(Request $request)

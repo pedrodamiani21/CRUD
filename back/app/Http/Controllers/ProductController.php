@@ -14,9 +14,11 @@ class ProductController extends Controller
     {
         $this->productService = $productService;
     }
-    public function index()
+    public function index(Request $request)
     {
-        return $this->productService->validateAllProducts();
+        $q = $request->input('q') ?? null;
+        $data = ['q' => $q];
+        return $this->productService->validateAllProducts($data);
     }
 
     public function create(Request $request)

@@ -14,9 +14,9 @@ class ProductService{
         $this->productRepository = $productRepository;
     }
 
-    public function validateAllProducts() 
+    public function validateAllProducts($data) 
     {
-        return response([$this->productRepository->allProducts()], 200);
+        return response([$this->productRepository->allProducts($data)], 200);
     }
 
     public function validateProductCreate($data)
@@ -56,7 +56,7 @@ class ProductService{
             $validator = Validator::make($data, [
                 'id' => 'required|numeric',
                 'price' => 'numeric',
-                'bar_code' => 'max:20|unique:products'
+                'bar_code' => 'max:20'
             ]);
         
             if(!$validator->fails())
